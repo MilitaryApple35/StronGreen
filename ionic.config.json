@@ -1,0 +1,7 @@
+{
+  "name": "StronGreen",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
