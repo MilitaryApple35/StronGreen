@@ -1,0 +1,20 @@
+:root{
+    background-color: #ffffff;
+}
+ion-input, ion-button, ion-icon, ion-content, ion-item{
+    background-color: white;
+    border-color: #69a74f;
+}
+app-login-input{
+    background-color: #ffffff;
+}
+ion-button{
+    --color: #000000;
+}
+.ion-text-end{
+    color: #000000;
+}
+.forgot:hover,
+.forgot:active {
+    text-decoration: underline;
+}

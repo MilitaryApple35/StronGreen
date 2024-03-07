@@ -1,0 +1,29 @@
+<ion-card>
+  <ion-card-header>
+    <ion-card-title>Sensor 1</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6">
+          <ion-text color="Light">
+            <ion-img class="shield-icon" src="../../../../assets/sensor-icons/tomatoes.webp"></ion-img>
+            <h1 style="color: #ffffff; text-align:center;">Tomates</h1>
+          </ion-text>
+        </ion-col>
+        <ion-col size="3">
+          <div class="indicator">
+            <ion-text color="Light"><h1>{{ temperature }}°C</h1></ion-text>
+            <ion-text color="Light"><h3>Temperatura</h3></ion-text>
+          </div>
+        </ion-col>
+        <ion-col size="3">
+          <div class="indicator">
+            <ion-text color="Light"><h1>{{ humidity }}°C</h1></ion-text>
+            <ion-text color="Light"><h3>Humedad</h3></ion-text>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card-content>
+</ion-card>

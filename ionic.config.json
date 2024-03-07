@@ -1,7 +1,14 @@
 {
-  "name": "StronGreen",
-  "integrations": {
+  "name": "StronGreen",  "integrations": {
     "capacitor": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "http://localhost:3000/api"
+    }
+  ],
+  "proxyAddress": "http://192.168.1.80:8100"
+  
 }
