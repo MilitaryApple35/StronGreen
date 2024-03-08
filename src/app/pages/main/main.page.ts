@@ -1,5 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-main',
@@ -14,7 +16,7 @@ export class MainPage implements OnInit {
   pages = [
     {title: 'Inicio', url: '/main/home', icon: 'home-outline'},
   ]
-  constructor() { }
+  constructor(private fireBaseService: FirebaseService, private utils: UtilsService) { }
 
   ngOnInit() {
     this.router.events.subscribe((event : any) => {
@@ -23,6 +25,9 @@ export class MainPage implements OnInit {
         }
       }
     );
+  }
+  signOut(){
+    this.fireBaseService.signOut();
   }
 
 }

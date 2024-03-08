@@ -10,6 +10,14 @@
     </ion-menu-toggle>
   </ion-content>
 
+  <ion-footer class="ion-no-border safe-p-buttom">
+    <ion-toolbar auto-hide="false">
+      <ion-item (click)="signOut()" lines="none">
+        <ion-icon color="stron" slot="start" name="log-out-outline"></ion-icon>
+        <ion-label color="stron">Cerrar Sesión</ion-label>
+      </ion-item>
+    </ion-toolbar>
+  </ion-footer>
 </ion-menu>
 
 <ion-router-outlet id="menu-content" main></ion-router-outlet>

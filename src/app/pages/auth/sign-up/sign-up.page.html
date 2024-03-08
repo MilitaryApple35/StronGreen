@@ -3,6 +3,20 @@
   <div class="d-flex-center">
     <form [formGroup]="form" (ngSubmit)="submit()" class="auth-form" (keypress.enter)="submit()">
       <app-logo></app-logo>
+      <p class="ion-text-center">Ingresa tus datos para registrarte</p>
+      <app-login-input 
+        icon="person-outline"
+        label="Nombre"
+        type="name"
+        [control]="form.controls.name">
+        
+      </app-login-input>
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">Introduzca un nombre</div>
+        <div *ngIf="form.controls.name.errors?.['minLenght']">El nombre debe tener más de 3 caracteres</div>
+        <div *ngIf="form.controls.name.errors?.['pattern']">No puede tener numeros ni caracteres especiales</div>
+      </div>
+      
       <app-login-input 
         autocomplete="email"
         icon="mail-outline"
@@ -30,7 +44,7 @@
         icon="lock-closed-outline"
         label="Confirme la Contraseña"
         type="confirmPassword"
-        [control]="form.controls.password">
+        [control]="form.controls.confirmPassword">
       </app-login-input>
       <div class="validators" *ngIf="form.controls.confirmPassword.errors && form.controls.confirmPassword.touched">
         <div *ngIf="form.controls.password.errors?.['required']">La contraseña es requerida</div>
