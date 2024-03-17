@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "firebase/auth"; 
 import { User } from '../models/user.model';
 import { doc, getDoc, getFirestore, setDoc } from "@angular/fire/firestore";
 import { UtilsService } from './utils.service';
-
+import { addDoc, collection } from 'firebase/firestore';
+import { ref, getStorage, uploadString, getDownloadURL } from 'firebase/storage';
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseService {
-  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private utils: UtilsService) {}
+  dataRef: AngularFirestoreCollection<User>;
+  constructor(private auth: AngularFireAuth, private firestore: AngularFirestore, private utils: UtilsService,) {}
 
   getAuth() {
     return getAuth();
@@ -38,5 +40,24 @@ export class FirebaseService {
     getAuth().signOut();
     localStorage.removeItem('user');
     this.utils.routerlink('auth');
+  }
+  addDocument(path: any, data: any){
+    return addDoc(collection(getFirestore(), path), data);
+  }
+
+  async updateImg(path: any, data_url: any){
+    return uploadString(ref(getStorage(), path), data_url, 'data_url')
+    .then(() => {
+      return getDownloadURL(ref(getStorage(), path));
+    })
+  }
+
+  getCollectionData(path: any) : AngularFirestoreCollection<User>{
+    try {
+      this.dataRef = this.firestore.collection(path, ref => ref.orderBy('name', 'asc'));
+      return this.dataRef;
+    } catch (error) {
+      return null;
+    }
   }
 }

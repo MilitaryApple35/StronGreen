@@ -18,6 +18,7 @@ export class AuthPage implements OnInit {
   constructor(private fireBaseService: FirebaseService, private utils: UtilsService) { }
 
   ngOnInit() {
+    this.fireBaseService.signOut();
   }
 
   async submit(){
@@ -30,6 +31,8 @@ export class AuthPage implements OnInit {
           this.getUserInfo(res.user.uid);
         })
         .catch(err => {
+          this.fireBaseService.signOut();
+          console.log(err);
           this.utils.presentToast({message: "Inicio de sesión incorrecto", duration: 2000, color: "danger", position: "bottom", icon: "alert-circle-outline"});
         })
         .finally(() => {
@@ -47,9 +50,10 @@ export class AuthPage implements OnInit {
         .then((user: User) => { 
           this.utils.saveLocalStorage('user', user);
           this.utils.routerlink('main/home');
-          this.utils.presentToast({message: `Bienvenido(a) ${user.name}`, duration: 2000, color: "success", position: "bottom", icon: "person-circle-outline"});
+          this.utils.presentToast({message: `Bienvenido(a) ${user?.name}`, duration: 2000, color: "success", position: "bottom", icon: "person-circle-outline"});
         })
         .catch(err => {
+          this.fireBaseService.signOut();
           this.utils.presentToast({message: "Inicio de sesión incorrecto", duration: 2000, color: "danger", position: "bottom", icon: "alert-circle-outline"});
         })
         .finally(() => {

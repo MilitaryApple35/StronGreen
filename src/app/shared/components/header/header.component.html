@@ -3,7 +3,10 @@
     <ion-buttons>
       <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>      
       <ion-menu-button *ngIf="showMenu" menu="menu-content"></ion-menu-button>
+      <ion-title>{{ title }}</ion-title>
+      <ion-button slot="end" *ngIf="isModal" (click)="dismissModal()">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>      
     </ion-buttons>
-    <ion-title>{{ title }}</ion-title>
   </ion-toolbar>
 </ion-header>

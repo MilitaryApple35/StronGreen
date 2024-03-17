@@ -1,3 +1,48 @@
-<p>
-  update-sensor works!
-</p>
+<app-header [isModal]="true" title="Agregar"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form [formGroup]="form" (ngSubmit)="submit()" class="ion-padding ion-text-center " (keypress.enter)="submit()">
+        <ion-avatar *ngIf="form.value.img">
+          <img [src]="form.value.img" />
+        </ion-avatar>
+        
+        <ion-icon class="img-icon" name="image-outline" *ngIf="!form.value.img"></ion-icon> <br>
+        <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+          Seleccione una imagen
+        </ion-button>
+      
+      <app-login-input 
+        autocomplete="name"
+        icon="code-outline"
+        label="Nombre del sensor"
+        type="name"
+        
+        [control]="form.controls.name">
+        
+      </app-login-input>
+      <div class="validators" *ngIf="form.controls.name.errors && form.controls.name.touched">
+        <div *ngIf="form.controls.name.errors?.['required']">Ingrese un nombre</div>
+        <div *ngIf="form.controls.name.errors?.['minLenght']">El nombre debe tener al menos 3 caracteres</div>
+      </div>
+
+      <app-login-input 
+        autocomplete="description"
+        icon="information-circle-outline"
+        label="Descripción del sensor"
+        type="description"
+        
+        [control]="form.controls.description">
+        
+      </app-login-input>
+      <div class="validators" *ngIf="form.controls.description.errors && form.controls.description.touched">
+        <div *ngIf="form.controls.description.errors?.['required']">Ingrese una descripción</div>
+        <div *ngIf="form.controls.description.errors?.['minLenght']">La descripción debe tener al menos 3 caracteres</div>
+      </div>
+
+      <ion-button color="stron" class="submit" type="submit" expand="block" mode="ios" fill="outline" [disabled]="form.invalid">
+        Agregar sensor
+        <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>   
+    </form>
+  </div>
+</ion-content>
