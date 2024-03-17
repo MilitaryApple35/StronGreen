@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-update-sensor',
@@ -20,7 +22,7 @@ export class UpdateSensorComponent  implements OnInit {
     img: new FormControl('', [Validators.required]),
   }); 
 
-  constructor(private fireBaseService: FirebaseService, private utils: UtilsService) { }
+  constructor(private fireBaseService: FirebaseService, private utils: UtilsService, private router: Router) { }
 
   ngOnInit() {
     this.user = this.utils.getLocalStorage('user');
@@ -51,6 +53,7 @@ export class UpdateSensorComponent  implements OnInit {
     .then(async resp => {
       this.utils.dismissModal({success:true});
       this.utils.presentToast({message: `Sensor agregado correctamente`, duration: 2000, color: "success", position: "bottom", icon: "checkmark-circle-outline"});
+      this.router.navigate(['main/home']);
     })
     .catch(err => {
       console.log(err);
