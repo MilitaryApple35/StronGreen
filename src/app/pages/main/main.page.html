@@ -7,7 +7,7 @@
       <ion-icon color="stron" class="empty-icon" name="person-circle-outline"></ion-icon>
     </ion-avatar>
 
-    <ion-label color="stron"><h3>{{ user()?.name }}</h3></ion-label>
+    <ion-label color="stron"><h3>{{ user()?.name | titlecase }}</h3></ion-label>
 
     <ion-menu-toggle autoHide="false" *ngFor="let p of pages">
       <ion-item [ngClass]="{'active': currentPath === p.url}" [routerLink]="p.url" routerDirection="root">
