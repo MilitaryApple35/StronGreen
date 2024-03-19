@@ -35,5 +35,24 @@ export class MainPage implements OnInit {
     return this.utils.getLocalStorage('user');
   }
 
+  confirmSignOut(){
+    this.utils.presentAlert({
+      header: 'Cerrar sesión',
+      message: '¿Estás seguro que deseas cerrar sesión?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {}
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.signOut();
+          }
+        }
+      ]
+    });
+  }
   
 }

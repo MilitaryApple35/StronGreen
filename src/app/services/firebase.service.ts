@@ -3,10 +3,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, sendPasswordResetEmail } from "firebase/auth"; 
 import { User } from '../models/user.model';
-import { doc, getDoc, getFirestore, setDoc } from "@angular/fire/firestore";
+import { deleteDoc, doc, getDoc, getFirestore, setDoc } from "@angular/fire/firestore";
 import { UtilsService } from './utils.service';
-import { addDoc, collection } from 'firebase/firestore';
-import { ref, getStorage, uploadString, getDownloadURL } from 'firebase/storage';
+import { addDoc, collection, updateDoc } from 'firebase/firestore';
+import { ref, getStorage, uploadString, getDownloadURL, deleteObject } from 'firebase/storage';
 @Injectable({
   providedIn: 'root'
 })
@@ -59,5 +59,21 @@ export class FirebaseService {
     } catch (error) {
       return null;
     }
+  }
+
+  async getFilePath(url: string){
+    return ref(getStorage(), url).fullPath;
+  }
+
+  updateDocument(path: any, data: any){
+    return updateDoc(doc(getFirestore(), path), data);
+  }
+
+  deleteDocument(path: any){
+    return deleteDoc(doc(getFirestore(), path));
+  }
+
+  deleteFile(path: any){
+    return deleteObject(ref(getStorage(), path)); 
   }
 }

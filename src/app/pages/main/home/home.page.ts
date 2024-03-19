@@ -25,7 +25,7 @@ export class HomePage {
   }
 
   async addUpdate(sensor?: Sensor){
-    await this.utils.getModal({
+    let modal = await this.utils.getModal({
       component: UpdateSensorComponent,
       cssClass: "add-update-modal",
       componentProps: { sensor },
@@ -69,4 +69,49 @@ export class HomePage {
       event.target.complete();
     }, 1000);
   }
+
+  async deleteSensor(sensor: Sensor){
+    let path = `users/${this.user().uid}/sensors/${sensor.id}`
+    const loading = await this.utils.loading();
+    await loading.present();
+    let imgPath =await this.firebaseService.getFilePath(sensor.img);
+    await this.firebaseService.deleteFile(imgPath);
+
+    this.firebaseService.deleteDocument(path)
+    .then(async resp => {
+      //Actualizar la lista de sensores
+      this.sensors = this.sensors.filter(s => s.id !== sensor.id);
+      this.utils.dismissModal({success:true});
+      this.utils.presentToast({message: `Sensor eliminado correctamente`, duration: 2000, color: "success", position: "bottom", icon: "trash-circle-outline"});
+    })
+    .catch(err => {
+      console.log(err);
+      this.utils.presentToast({message: "Error al eliminar el sensor", duration: 2000, color: "danger", position: "bottom", icon: "alert-circle-outline"});
+    })
+    .finally(() => {
+      loading.dismiss();
+    });
+  }
+
+  confirmDeleteSensor(sensor: Sensor){
+    this.utils.presentAlert({
+      header: "Eliminar sensor",
+      message: `¿Está seguro de eliminar el sensor ${sensor.name}?`,
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel",
+          cssClass: "secondary",
+          handler: () => {}
+        },
+        {
+          text: "Eliminar",
+          handler: () => {
+            this.deleteSensor(sensor);
+          }
+        }
+      ]
+    });
+  }
+  
 }
