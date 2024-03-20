@@ -15,6 +15,7 @@ import { Sensor } from 'src/app/models/sensor.model';
 export class UpdateSensorComponent  implements OnInit {
   @Input() sensor: Sensor;
   user= {} as User;
+  buttonDisabled = false;
 
   form = new FormGroup({
     id: new FormControl(''),
@@ -32,9 +33,14 @@ export class UpdateSensorComponent  implements OnInit {
     }
   }
   async submit(){
+    this.buttonDisabled = true;
     if(this.form.valid){
       if(this.sensor) this.updateSensor();
       else await this.createSensor();
+    }
+    else{
+      this.utils.presentToast({message: "Por favor completa el formulario", duration: 2000, color: "danger", position: "bottom", icon: "alert-circle-outline"});
+      this.buttonDisabled = false;
     }
   }
 

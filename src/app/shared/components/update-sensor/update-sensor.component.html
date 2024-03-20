@@ -39,7 +39,7 @@
         <div *ngIf="form.controls.description.errors?.['minLenght']">La descripción debe tener al menos 3 caracteres</div>
       </div>
 
-      <ion-button color="stron" class="submit" type="submit" mode="ios" [disabled]="form.invalid">
+      <ion-button id="sumbitButton" color="stron" class="submit" type="submit" mode="ios" [disabled]="form.invalid || buttonDisabled">
         {{sensor ? 'Actualizar Sensor' : 'Agregar Sensor'}}
         <ion-icon slot="end" name="checkmark-circle-outline"></ion-icon>
       </ion-button>   
